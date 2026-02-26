@@ -6,7 +6,7 @@
 /*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 09:09:53 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/07 11:46:50 by bvarea-k         ###   ########.fr       */
+/*   Updated: 2026/02/26 15:50:39 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@ void	handle_input(mlx_key_data_t keydata, void *param)
 		move_player(game, 1, 0);
 }
 
+static void	update_player_position(t_game *game)
+{
+	game->img_player->instances[game->player_instance].x = game->player_x
+		* TILE_SIZE;
+	game->img_player->instances[game->player_instance].y = game->player_y
+		* TILE_SIZE;
+}
+
 void	move_player(t_game *game, int dx, int dy)
 {
 	int		new_x;
@@ -65,7 +73,7 @@ void	move_player(t_game *game, int dx, int dy)
 	if (!process_move(game, new_x, new_y))
 		return ;
 	ft_printf("Moves: %d\n", game->moves);
-	draw_map(game);
+	update_player_position(game);
 }
 
 int	process_move(t_game *game, int new_x, int new_y)
@@ -79,6 +87,7 @@ int	process_move(t_game *game, int new_x, int new_y)
 	{
 		game->collectibles--;
 		game->map[new_y][new_x] = FLOOR;
+		hide_collectible(game, new_x, new_y);
 	}
 	if (tile == EXIT && game->collectibles == 0)
 	{
@@ -93,10 +102,3 @@ int	process_move(t_game *game, int new_x, int new_y)
 	return (1);
 }
 
-void	close_game(t_game *game)
-{
-	if (game->mlx)
-		mlx_terminate(game->mlx);
-	free_map(game->map);
-	exit(EXIT_SUCCESS);
-}

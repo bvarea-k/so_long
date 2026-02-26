@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgo <bgo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 09:42:21 by bvarea-k          #+#    #+#             */
-/*   Updated: 2025/08/07 17:07:12 by bgo              ###   ########.fr       */
+/*   Updated: 2026/02/26 15:53:57 by bvarea-k         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,31 @@
 # include <fcntl.h>
 # include <string.h>
 
+typedef struct s_collectible
+{
+	int						x;
+	int						y;
+	int						instance;
+	struct s_collectible	*next;
+} t_collectible;
+
 typedef struct s_game
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img_player;
-	mlx_image_t	*img_background;
-	mlx_image_t	*img_wall;
-	mlx_image_t	*img_exit;
-	mlx_image_t	*img_collect;
-	char		**map;
-	int			player_x;
-	int			player_y;
-	int			collectibles;
-	int			moves;
-	int			width;
-	int			height;
+	mlx_t			*mlx;
+	mlx_image_t		*img_player;
+	mlx_image_t		*img_background;
+	mlx_image_t		*img_wall;
+	mlx_image_t		*img_exit;
+	mlx_image_t		*img_collect;
+	char			**map;
+	int				player_x;
+	int				player_y;
+	int				collectibles;
+	int				moves;
+	int				width;
+	int				height;
+	int				player_instance;
+	t_collectible	*collectibles_list;
 }	t_game;
 
 void	error_exit(const char *msg);
@@ -73,5 +83,6 @@ void	locate_player(t_game *game);
 void	cleanup_gnl(void);
 int		process_move(t_game *game, int new_x, int new_y);
 void	extra_main(t_game *game);
+void	hide_collectible(t_game *game, int x, int y);
 
 #endif

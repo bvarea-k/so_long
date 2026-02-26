@@ -6,7 +6,7 @@
 #    By: bvarea-k <bvarea-k@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/28 09:39:40 by bvarea-k          #+#    #+#              #
-#    Updated: 2025/08/07 12:18:02 by bvarea-k         ###   ########.fr        #
+#    Updated: 2026/02/26 15:49:07 by bvarea-k         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FILES = so_long \
 	  utils \
 	  check_utils \
 	  draw \
+	  close_game \
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
